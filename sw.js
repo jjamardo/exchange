@@ -1,26 +1,44 @@
-var cacheName = 'hello-pwa';
+var cacheName = 'pwa_template';
+
 var filesToCache = [
-  '/',
-  '/index.html',
-  '/css/style.css',
-  '/js/main.js'
+  '/pwa_tpl/',
+  'sw.js',
+  'index.html',
+  'css/style.css',
+  'js/main.js'
 ];
 
-/* Start the service worker and cache all of the app's content */
-self.addEventListener('install', function(e) {
-  e.waitUntil(
-    caches.open(cacheName).then(function(cache) {
-      return cache.addAll(filesToCache);
-    })
-  );
-  self.skipWaiting();
+self.addEventListener("install", function (event) {
+  event.waitUntil(caches.open(cacheName).then((cache) => {
+    console.log('installed successfully')
+    return cache.addAll(filesToCache);
+  }));
 });
 
-/* Serve cached content when offline */
-self.addEventListener('fetch', function(e) {
-  e.respondWith(
-    caches.match(e.request).then(function(response) {
-      return response || fetch(e.request);
+self.addEventListener('fetch', (e) => {
+  console.log(e.request);
+  e.respondWith((async () => {
+    const r = await caches.match(e.request);
+    console.log(`[Service Worker] Fetching resource: ${e.request.url}`);
+    if (r) { return r; }
+    const response = await fetch(e.request);
+    const cache = await caches.open(cacheName);
+    console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
+    cache.put(e.request, response.clone());
+    return response;
+  })());
+});
+
+self.addEventListener('activate', function (e) {
+  e.waitUntil(
+    caches.keys().then(function (keyList) {
+      return Promise.all(keyList.map(function (key) {
+        if (key !== cacheName) {
+          console.log('service worker: Removing old cache', key);
+          return caches.delete(key);
+        }
+      }));
     })
   );
+  return self.clients.claim();
 });
