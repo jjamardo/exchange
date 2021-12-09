@@ -1,6 +1,6 @@
 {
-  "name": "PWA Template",
-  "short_name": "PWA",
+  "name": "Exchange",
+  "short_name": "Exchange",
   "icons": [{
     "src": "images/app-icon-128.png",
       "sizes": "128x128",

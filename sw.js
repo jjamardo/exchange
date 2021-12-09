@@ -1,7 +1,7 @@
-var cacheName = 'pwa_template';
+var cacheName = 'exchange_cache';
 
 var filesToCache = [
-  '/pwa_tpl/',
+  '/exchange/',
   'sw.js',
   'index.html',
   'css/style.css',
