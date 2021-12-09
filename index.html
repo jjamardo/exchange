@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>PWA Template</title>
@@ -8,15 +9,31 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <link rel="apple-touch-icon" href="images/app-icon-152.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="white"/>
+  <meta name="theme-color" content="white" />
   <meta name="msapplication-TileImage" content="images/app-icon-144.png">
   <meta name="msapplication-TileColor" content="#FFFFFF">
 </head>
+
 <body class="fullscreen">
   <div class="container">
-    <h1 class="title">PWA Template</h1>
+    <h2 id="cop_rate">1 USD = ### COP</h2>
+    <h2 id="ars_rate">1 USD = ### ARS</h2>
+    <h1>Convert!</h1>
+    <form id="form_data">
+      <div class="fields">
+        <div>
+          <input placeholder="$ COP" type="number" id="from_input" />
+        </div>
+        <div style="margin-top: 10px">
+          <input class="submit" value="⇩" type="submit" />
+        </div>
+        <div style="margin-top: 10px">
+          <input placeholder="$ ARS" type="number" id="to_input" readonly />
+        </div>
+      </div>
+    </form>
   </div>
   <script src="js/main.js"></script>
-</script>
 </body>
+
 </html>
